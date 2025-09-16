@@ -35,7 +35,8 @@ class FitrixApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: ColorsManager.primaryGreen,
           scaffoldBackgroundColor: Colors.white,
-          fontFamily: GoogleFonts.cairo().fontFamily,
+          // fontFamily: GoogleFonts.cairo().fontFamily,
+          fontFamily: GoogleFonts.montserrat().fontFamily,
         ),
         localizationsDelegates: [
           S.delegate,

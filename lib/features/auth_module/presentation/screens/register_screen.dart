@@ -3,10 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common_ui/widgets/custom_button.dart';
 import '../../../../core/common_ui/widgets/custom_text_field.dart';
 import '../../../../core/theming/app_colors.dart';
+import '../../../../core/theming/styles.dart';
 import '../cubits/register/register_cubit.dart';
 import 'login_screen.dart';
+import 'package:fitrix/core/routing/navigation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/common_ui/widgets/custom_button.dart';
+import '../../../../core/common_ui/widgets/custom_text_field.dart';
+import '../../../../core/routing/routes.dart';
+import '../../../../core/theming/app_colors.dart';
 import '../cubits/register/register_cubit.dart';
 import 'login_screen.dart';
 
@@ -126,6 +132,10 @@ class _RegisterScreenState extends State<RegisterScreen>
     }
   }
 
+  void _navigateToLogin() {
+    context.pushReplacementNamed(Routes.loginScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -163,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   boxShadow: ColorsManager.softShadow,
                                 ),
                                 child: IconButton(
-                                  onPressed: () => Navigator.pop(context),
+                                  onPressed: _navigateToLogin,
                                   icon: const Icon(
                                     Icons.arrow_back_ios,
                                     color: ColorsManager.primaryGreen,
@@ -226,21 +236,15 @@ class _RegisterScreenState extends State<RegisterScreen>
 
         const SizedBox(height: 24),
 
-        // Welcome text
-        const Text(
-          'Create Account',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: ColorsManager.primaryText,
-          ),
-        ),
+        // Create Account title - Using headline2 for main title
+        Text('Create Account', style: TextStyles.headline2),
 
         const SizedBox(height: 8),
 
-        const Text(
+        // Subtitle - Using subtitle2 for description
+        Text(
           'Join Fitrix and start your transformation',
-          style: TextStyle(fontSize: 16, color: ColorsManager.lightText),
+          style: TextStyles.subtitle2,
           textAlign: TextAlign.center,
         ),
       ],
@@ -315,34 +319,15 @@ class _RegisterScreenState extends State<RegisterScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'Already have an account? ',
-          style: TextStyle(color: ColorsManager.lightText, fontSize: 16),
+          style: TextStyles.font16LightTextRegular,
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, _) => const LoginScreen(),
-                transitionDuration: const Duration(milliseconds: 300),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                      return SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(-1.0, 0.0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      );
-                    },
-              ),
-            );
-          },
-          child: const Text(
+          onPressed: _navigateToLogin,
+          child: Text(
             'Login',
-            style: TextStyle(
-              color: ColorsManager.primaryGreen,
-              fontSize: 16,
+            style: TextStyles.font16PrimaryGreenRegular.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),

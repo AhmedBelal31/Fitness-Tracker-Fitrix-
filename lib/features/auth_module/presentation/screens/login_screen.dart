@@ -6,19 +6,12 @@ import '../../../../core/common_ui/widgets/custom_checkbox.dart';
 import '../../../../core/common_ui/widgets/custom_text_field.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/app_colors.dart';
+import '../../../../core/theming/styles.dart';
 import '../cubits/login/login_cubit.dart';
-import 'register_screen.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/login/login_cubit.dart';
-import 'register_screen.dart';
-// screens/login_screen.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../widgets/login/animated_fitness_icon.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -176,38 +169,18 @@ class _LoginScreenState extends State<LoginScreen>
     return Column(
       children: [
         // Logo
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: ColorsManager.primaryGradient,
-            boxShadow: ColorsManager.primaryShadow,
-          ),
-          child: const Icon(
-            Icons.fitness_center,
-            size: 50,
-            color: ColorsManager.whiteText,
-          ),
-        ),
-
+        PulsingFitnessIcon(),
         const SizedBox(height: 24),
 
-        // Welcome text
-        const Text(
-          'Welcome Back!',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-            color: ColorsManager.primaryText,
-          ),
-        ),
+        // Welcome text - Using headline1 for main title
+        Text('Welcome Back!', style: TextStyles.headline1),
 
         const SizedBox(height: 8),
 
-        const Text(
+        // Subtitle - Using subtitle2 for description
+        Text(
           'Sign in to continue your fitness journey',
-          style: TextStyle(fontSize: 16, color: ColorsManager.lightText),
+          style: TextStyles.subtitle2,
           textAlign: TextAlign.center,
         ),
       ],
@@ -275,17 +248,18 @@ class _LoginScreenState extends State<LoginScreen>
         onPressed: () {
           // Handle forgot password
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Forgot password feature coming soon!'),
+            SnackBar(
+              content: Text(
+                'Forgot password feature coming soon!',
+                style: TextStyles.font14WhiteMedium,
+              ),
               backgroundColor: ColorsManager.primaryGreen,
             ),
           );
         },
-        child: const Text(
+        child: Text(
           'Forgot Password?',
-          style: TextStyle(
-            color: ColorsManager.primaryGreen,
-            fontSize: 16,
+          style: TextStyles.font16PrimaryGreenRegular.copyWith(
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -297,17 +271,15 @@ class _LoginScreenState extends State<LoginScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           "Don't have an account? ",
-          style: TextStyle(color: ColorsManager.lightText, fontSize: 16),
+          style: TextStyles.font16LightTextRegular,
         ),
         TextButton(
           onPressed: _navigateToRegister,
-          child: const Text(
+          child: Text(
             'Register',
-            style: TextStyle(
-              color: ColorsManager.primaryGreen,
-              fontSize: 16,
+            style: TextStyles.font16PrimaryGreenRegular.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
